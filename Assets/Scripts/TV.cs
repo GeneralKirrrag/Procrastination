@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class TV : MonoBehaviour
 {
     public Timer timer;
     public CameraController camController;
     public VirtualCamera virtualCamera;
+    public PlayerController player;
+    public Image interactImage;
+    public GameObject screen;
 
     private bool isInRange;
     public LayerMask playerLayer;
@@ -27,6 +31,8 @@ public class TV : MonoBehaviour
         if (((1 << other.gameObject.layer) & playerLayer) != 0)
         {
             Debug.Log("Player In Range!");
+            screen.SetActive(true);
+            interactImage.enabled = true;
             isInRange = true;
         }
     }
@@ -35,6 +41,8 @@ public class TV : MonoBehaviour
     {
         if (((1 << other.gameObject.layer) & playerLayer) != 0)
         {
+            screen.SetActive(false);
+            interactImage.enabled = false;
             isInRange = false;
         }
     }
@@ -43,14 +51,17 @@ public class TV : MonoBehaviour
     {
         Debug.Log("Input Accepted!");
 
-        if (!isInRange) return;
-
         if (!virtualCamera.vCam.enabled)
         {
+            if (!isInRange) return;
+            player.controllable = false;
+            player.ShowCharacter = false;
             camController.SwitchCamera(virtualCamera);
         }
         else
         {
+            player.controllable = true;
+            player.ShowCharacter = true;
             camController.SwitchCamera(camController.StartingCamera);
         }
         

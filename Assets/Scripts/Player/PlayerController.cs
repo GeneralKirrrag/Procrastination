@@ -2,12 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements.Experimental;
 
 public class PlayerController : MonoBehaviour {
     public bool controllable = true;
+    private bool showCharacter;
+    public bool ShowCharacter {
+        get {
+            return showCharacter;
+        }
+        set {
+            characterModel.SetActive(value);
+            showCharacter = value;
+        }
+    }
     
     [SerializeField] private Rigidbody rb;
     [SerializeField] private Animator animator;
+    [SerializeField] private GameObject characterModel;
     [SerializeField] private float speed = 5;
     [SerializeField] private float turnSpeed = 360;
     private Vector3 input;

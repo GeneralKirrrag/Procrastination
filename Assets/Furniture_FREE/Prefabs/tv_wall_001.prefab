@@ -319,6 +319,12 @@ MonoBehaviour:
   virtualCamera:
     camType: 2
     vCam: {fileID: 0}
+  player: {fileID: 0}
+  interactImage: {fileID: 0}
+  screen: {fileID: 8839893187720635818}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 64
   inputAction:
     m_Name: Input
     m_Type: 0

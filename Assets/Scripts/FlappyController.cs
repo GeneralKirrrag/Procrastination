@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,6 +11,7 @@ public class FlappyController : MonoBehaviour
     [SerializeField] private float rotationSpeed = 10f;
 
     [SerializeField] private InputAction flapAction;
+    [SerializeField] private CinemachineVirtualCamera vCam;
 
     private Rigidbody2D rb;
 
@@ -43,6 +45,8 @@ public class FlappyController : MonoBehaviour
 
     private void Flap(InputAction.CallbackContext context)
     {
+        if (!vCam.enabled) return;
+
         if (!started) {
             started = true;
             rb.bodyType = RigidbodyType2D.Dynamic;
